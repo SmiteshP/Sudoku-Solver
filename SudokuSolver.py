@@ -24,7 +24,7 @@ class Grid():
 		# boxList contains all the BoxInfo objects
 		self.boxList = []
 		for i in range(1, 10):
-			pass
+			self.boxList.append(BoxInfo(i))
 
 	class Tile():
 
@@ -32,6 +32,7 @@ class Grid():
 			self.x = x
 			self.y = y
 			self.val = val
+			self.box = Grid.getBoxNum(x, y)
 
 	class RowInfo():
 
@@ -45,7 +46,7 @@ class Grid():
 
 	class BoxInfo():
 
-		def __init__(self):
+		def __init__(self, boxNumber):
 			pass
 			
 	@staticmethod
