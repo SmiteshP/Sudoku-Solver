@@ -1,5 +1,5 @@
 class Grid():
-	# Grid holds all the data of the gameboard
+# Grid holds all the data of the gameboard
 
 	def __init__(self, StartingGrid):
 		
@@ -11,20 +11,20 @@ class Grid():
 			for x in range(1, 10):
 				self.tileList.append(Tile(x, y, grid[x-1][y-1]))
 		
-		# rowList contains all the RowInfo objects
+		# rowList contains all the ComponentInfo objects that store info about Rows
 		self.rowList = []
 		for y in range(1, 10):
-			self.rowList.append(RowInfo(y))
+			self.rowList.append(ComponentInfo(y))
 
-		# colList contains all the ColInfo objects
+		# colList contains all the ComponentInfo objects that store info about Cols
 		self.colList = []
 		for x in range(1, 10):
-			self.colList.append(ColInfo(x))
+			self.colList.append(ComponentInfo(x))
 
-		# boxList contains all the BoxInfo objects
+		# boxList contains all the ComponentInfo objects that store info about Boxes
 		self.boxList = []
 		for i in range(1, 10):
-			self.boxList.append(BoxInfo(i))
+			self.boxList.append(ComponentInfo(i))
 
 	class Tile():
 
@@ -34,20 +34,9 @@ class Grid():
 			self.val = val
 			self.box = Grid.getBoxNum(x, y)
 
-	class RowInfo():
+	class ComponentInfo():
 
-		def __init__(self, rowNumber):
-			pass
-
-	class ColInfo():
-
-		def __init__(self, colNumber):
-			pass
-
-	class BoxInfo():
-
-		def __init__(self, boxNumber):
-			pass
+		def __init__(self, compNumber):
 			
 	@staticmethod
 	def getBoxNum(x, y):
