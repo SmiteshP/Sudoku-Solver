@@ -63,3 +63,22 @@ class Grid():
 			return boxNums[x-1] + 3
 		else:
 			return boxNums[x-1] + 6
+
+	def printGrid(self):
+
+		'''
+		prints the grid in a nice format
+		
+		'''
+
+		for j, row in enumerate(self.grid):
+			for i, num in enumerate(row):
+				if i%3 == 0 and i != 0:
+					print('\t', num, end = ' ')
+				else:
+					print(num, end = ' ')
+			if (j+1)%3 == 0 and j != 0:
+				print()
+				print()
+			else:
+				print()
