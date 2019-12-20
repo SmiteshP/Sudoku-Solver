@@ -14,19 +14,22 @@ class Grid():
 		# rowList contains all the ComponentInfo objects that store info about Rows
 		self.rowList = []
 		for y in range(1, 10):
-			temp = {self.grid[y-1][k] for k in range(9)}
-			self.rowList.append(self.ComponentInfo(y, temp))
+			self.rowList.append({self.grid[y-1][k] for k in range(9)})
 
 		# colList contains all the ComponentInfo objects that store info about Cols
 		self.colList = []
 		for x in range(1, 10):
-			temp = {self.grid[k][x-1] for k in range(9)}
-			self.colList.append(self.ComponentInfo(x, temp))
+			self.colList.append({self.grid[k][x-1] for k in range(9)})
 
 		# boxList contains all the ComponentInfo objects that store info about Boxes
 		self.boxList = []
-		for i in range(1, 10):
-			self.boxList.append(self.ComponentInfo(i, temp))
+		for y in range(0, 9, 3):
+			for x in range(0, 9, 3):
+				temp = set()
+				for j in range(3):
+					for i in range(3):
+						temp.add(self.grid[y+j][x+i])
+				self.boxList.append(temp)
 
 	class Tile():
 
@@ -35,13 +38,6 @@ class Grid():
 			self.y = y
 			self.val = val
 			self.box = Grid.getBoxNum(x, y)
-
-	class ComponentInfo():
-
-		def __init__(self, compNumber, initialInfo):
-			self.index = compNumber
-			self.numsSet = initialInfo
-
 			
 	@staticmethod
 	def getBoxNum(x, y):
