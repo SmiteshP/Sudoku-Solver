@@ -11,17 +11,17 @@ class Grid():
 			for x in range(1, 10):
 				self.tileList.append(self.Tile(x, y, self.grid[y-1][x-1]))
 		
-		# rowList contains all the ComponentInfo objects that store info about Rows
+		# rowList contains all the sets that numbers contained in that row
 		self.rowList = []
 		for y in range(1, 10):
 			self.rowList.append({self.grid[y-1][k] for k in range(9)})
 
-		# colList contains all the ComponentInfo objects that store info about Cols
+		# colList contains all the sets that numbers contained in that coloumn
 		self.colList = []
 		for x in range(1, 10):
 			self.colList.append({self.grid[k][x-1] for k in range(9)})
 
-		# boxList contains all the ComponentInfo objects that store info about Boxes
+		# boxList contains all the sets that numbers contained in that box
 		self.boxList = []
 		for y in range(0, 9, 3):
 			for x in range(0, 9, 3):
@@ -32,6 +32,12 @@ class Grid():
 				self.boxList.append(temp)
 
 	class Tile():
+	'''
+	Each grid is made up of 81 individual tiles
+	Every tile is able to check its designated row, coloumn and box
+	to check if the value of the tile can be determined.
+
+	'''
 
 		def __init__(self, x, y, val = 0):
 			self.x = x
