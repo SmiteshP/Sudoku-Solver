@@ -30,7 +30,9 @@ and is assumed to be correct.
 No fancy algorithm is used to solve the game board, each 
 tile is individually checked if its number can be deduced 
 over and over again until it the board is solved or no
-further progress can be made. 
+further progress can be made.
+
+GitHub: https://github.com/SmiteshP/Sudoku-Solver.git
 '''
 
 class Grid():
