@@ -4,12 +4,6 @@ class Grid():
 	def __init__(self, StartingGrid):
 		
 		self.grid = StartingGrid
-	
-		# tileList contians all the tile objects
-		self.tileList = []
-		for y in range(1, 10):
-			for x in range(1, 10):
-				self.tileList.append(self.Tile(x, y, self.grid[y-1][x-1]))
 		
 		# rowList contains all the sets that numbers contained in that row
 		self.rowList = []
@@ -31,19 +25,48 @@ class Grid():
 						temp.add(self.grid[y+j][x+i])
 				self.boxList.append(temp)
 
+		# tileList contians all the tile objects
+		self.tileList = []
+		for y in range(1, 10):
+			for x in range(1, 10):
+				self.tileList.append(self.Tile(x, y, self.grid[y-1][x-1], self.rowList[y-1], self.colList[x-1], self.boxList[Grid.getBoxNum(x, y) - 1]))
+
 	class Tile():
-	'''
-	Each grid is made up of 81 individual tiles
-	Every tile is able to check its designated row, coloumn and box
-	to check if the value of the tile can be determined.
+		'''
+		A grid is made up of 81 individual tiles
+		Each tile is capable of solving for itself by
+		checking the values in its row, coloumn and box
 
-	'''
+		'''
 
-		def __init__(self, x, y, val = 0):
+		def __init__(self, x, y, val, rowSet, colSet, boxSet):
 			self.x = x
 			self.y = y
 			self.val = val
 			self.box = Grid.getBoxNum(x, y)
+			self.rowSet = rowSet
+			self.colSet = colSet
+			self.boxSet = boxSet
+
+		def isSolved(self):
+		# Return true when solved, else false
+			if self.val != 0:
+				return True
+			else:
+				return False
+
+		def solve(self):
+
+			# unionSet contains all the numbers that the tile cannot take
+			unionSet = self.rowSet.union(self.colSet, self.boxSet)
+			
+			if (len(unionSet) == 9) and (0 in unionSet) and (not self.isSolved()):
+				for num in range(1, 10):
+					if num not in unionSet:
+						self.val = num
+						self.rowSet.add(num)
+						self.colSet.add(num)
+						self.boxSet.add(num)
 			
 	@staticmethod
 	def getBoxNum(x, y):
@@ -84,3 +107,7 @@ class Grid():
 				print()
 			else:
 				print()
+
+	def updateGrid(self):
+		for tile in self.tileList:
+			self.grid[tile.y - 1][tile.x - 1] = tile.val
