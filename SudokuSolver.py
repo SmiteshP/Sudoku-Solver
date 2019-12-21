@@ -29,7 +29,7 @@ class Grid():
 		self.tileList = []
 		for y in range(1, 10):
 			for x in range(1, 10):
-				self.tileList.append(self.Tile(x, y, self.grid[y-1][x-1], self.rowList[y-1], self.colList[x-1], self.boxList[Grid.getBoxNum(x, y) - 1]))
+				self.tileList.append(self.Tile(x, y, self))
 
 	class Tile():
 		'''
@@ -39,14 +39,13 @@ class Grid():
 
 		'''
 
-		def __init__(self, x, y, val, rowSet, colSet, boxSet):
+		def __init__(self, x, y, containerGrid):
 			self.x = x
 			self.y = y
-			self.val = val
-			self.box = Grid.getBoxNum(x, y)
-			self.rowSet = rowSet
-			self.colSet = colSet
-			self.boxSet = boxSet
+			self.val = containerGrid.grid[y-1][x-1]
+			self.rowSet = containerGrid.rowList[y-1]
+			self.colSet = containerGrid.colList[x-1]
+			self.boxSet = containerGrid.boxList[Grid.getBoxNum(x, y) - 1]
 
 		def isSolved(self):
 		# Return true when solved, else false
