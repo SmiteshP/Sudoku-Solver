@@ -95,6 +95,8 @@ class Grid():
 		
 		'''
 
+		self.updateGrid()
+		
 		for j, row in enumerate(self.grid):
 			for i, num in enumerate(row):
 				if i%3 == 0 and i != 0:
@@ -110,3 +112,17 @@ class Grid():
 	def updateGrid(self):
 		for tile in self.tileList:
 			self.grid[tile.y - 1][tile.x - 1] = tile.val
+
+	def numSolvedTiles(self):
+		return len([tile for tile in self.tileList if tile.isSolved()])
+
+	def solve(self):
+
+		numSolvedBefore = 0
+
+		while(numSolvedBefore < self.numSolvedTiles()):
+			numSolvedBefore = self.numSolvedTiles()
+
+			for tile in self.tileList:
+				if not tile.isSolved():
+					tile.solve()
