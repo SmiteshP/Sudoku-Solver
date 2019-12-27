@@ -1,6 +1,10 @@
 from tkinter import *
 
 class Board_Input:
+	'''
+	Class to create input space for sudoku.
+
+	'''
 
 	def __init__(self, root):
 		self.root = root
@@ -28,7 +32,7 @@ class Board_Input:
 				else:
 					cSpacer = 2
 
-				inTile.grid(row=y+row+rSpacer, column=x+col+cSpacer)
+				inTile.grid(row=y+row+rSpacer, column=x+col+cSpacer, padx=1, pady=1)
 
 
 		# create some space in between the rows
@@ -44,3 +48,30 @@ class Board_Input:
 
 		colSpacer2 = Label(self.root, text=" ")
 		colSpacer2.grid(row=row, column=7+col)
+
+	def getInput(self):
+		# Returns all the entered values
+
+		currentBoard = []
+
+		for row in self.inTiles:
+			currentBoard.append([int(inTile.get()) if inTile.get() != '' else 0 for inTile in row])
+
+		return currentBoard
+
+def displayBoard(root, board):
+
+	text = ''
+	for j, row in enumerate(board):
+			for i, num in enumerate(row):
+				if i%3 == 0 and i != 0:
+					text += '\t'+num+' '
+				else:
+					text += num+' '
+			if (j+1)%3 == 0 and j != 0:
+				text += '\n\n'
+			else:
+				text += '\n'
+
+	solution = Label(root, text=text)
+	solution.pack()
